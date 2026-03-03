@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BeeNight — Video Viral Terbaik & Terkini</title>
+  <meta name="description" content="BeeNight menghadirkan koleksi video viral terbaik setiap hari dari YouTube, TikTok, Instagram Reels, dan Facebook."/>
+  <meta name="keywords" content="video viral, video lucu, trending, youtube viral, tiktok viral, reels viral, beenight"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://efsarrr.github.io/BeeNight/"/>
+  <meta property="og:title" content="BeeNight — Video Viral Terbaik"/>
+  <meta property="og:description" content="Kumpulan video viral paling seru setiap hari dari YouTube, TikTok, Reels dan Facebook!"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://efsarrr.github.io/BeeNight/"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--honey:#F5A623;--night:#0A0A0F;--night2:#12121A;--night3:#1C1C28;--text:#F0EDE6;--muted:#888;--red:#FF4444}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',sans-serif;background:var(--night);color:var(--text);overflow-x:hidden}
+
+    /* AGE GATE */
+    #age-gate{position:fixed;inset:0;z-index:9999;background:rgba(5,5,8,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;transition:opacity 0.4s}
+    #age-gate.hidden{opacity:0;pointer-events:none}
+    .age-box{background:var(--night2);border:1px solid rgba(245,166,35,0.2);border-radius:24px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(245,166,35,0.08)}
+    .age-box h2{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;margin:1rem 0 0.5rem}
+    .age-box p{color:var(--muted);font-size:0.88rem;line-height:1.6;margin-bottom:1.5rem}
+    .age-warn{background:rgba(255,68,68,0.07);border:1px solid rgba(255,68,68,0.18);border-radius:10px;padding:0.8rem;font-size:0.76rem;color:#ff9999;margin-bottom:1.5rem;line-height:1.5}
+    .age-btns{display:flex;flex-direction:column;gap:0.7rem}
+    .btn-yes{background:var(--honey);color:var(--night);font-family:'Syne',sans-serif;font-weight:700;padding:0.9rem;border:none;border-radius:10px;font-size:1rem;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s}
+    .btn-yes:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(245,166,35,0.4)}
+    .btn-no{background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,0.1);padding:0.7rem;border-radius:10px;font-size:0.85rem;cursor:pointer;transition:all 0.2s}
+    .btn-no:hover{border-color:var(--red);color:var(--red)}
+
+    /* 18+ GATE */
+    #gate18{position:fixed;inset:0;z-index:8500;background:rgba(5,5,8,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s}
+    #gate18.open{opacity:1;pointer-events:all}
+    .gate-box{background:var(--night2);border:1px solid rgba(255,68,68,0.3);border-radius:24px;padding:2.5rem 2rem;max-width:380px;width:90%;text-align:center;box-shadow:0 0 60px rgba(255,68,68,0.1)}
+    .gate-box h2{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--red);margin:0.8rem 0 0.5rem}
+    .gate-box p{color:var(--muted);font-size:0.85rem;line-height:1.6;margin-bottom:1rem}
+    .gate-disc{background:rgba(255,68,68,0.07);border:1px solid rgba(255,68,68,0.15);border-radius:8px;padding:0.7rem;font-size:0.74rem;color:#ff9999;margin-bottom:1.3rem;line-height:1.5}
+    .gate-btns{display:flex;gap:0.7rem}
+    .btn-18yes{flex:1;background:var(--red);color:#fff;font-family:'Syne',sans-serif;font-weight:700;padding:0.8rem;border:none;border-radius:10px;font-size:0.9rem;cursor:pointer;transition:opacity 0.2s}
+    .btn-18yes:hover{opacity:0.85}
+    .btn-18no{flex:1;background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,0.1);padding:0.8rem;border-radius:10px;font-size:0.85rem;cursor:pointer;transition:all 0.2s}
+    .btn-18no:hover{border-color:var(--muted);color:var(--text)}
+
+    /* VIDEO MODAL */
+    #vmodal{position:fixed;inset:0;z-index:9000;background:rgba(5,5,8,0.95);backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity 0.3s}
+    #vmodal.open{opacity:1;pointer-events:all}
+    .mbox{background:var(--night2);border-radius:20px;max-width:820px;width:100%;border:1px solid rgba(245,166,35,0.12);overflow:hidden;position:relative}
+    .mclose{position:absolute;top:10px;right:12px;background:rgba(0,0,0,0.5);border:none;color:#fff;width:32px;height:32px;border-radius:50%;font-size:1rem;cursor:pointer;z-index:5;transition:background 0.2s}
+    .mclose:hover{background:rgba(255,68,68,0.5)}
+    #mvideo{width:100%;aspect-ratio:16/9;background:#000}
+    #mvideo iframe{width:100%;height:100%;border:none;display:block}
+    .minfo{padding:1rem 1.4rem 1.2rem}
+    #mtitle{font-family:'Syne',sans-serif;font-weight:800;font-size:1.05rem;margin-bottom:0.3rem}
+    #mmeta{font-size:0.78rem;color:var(--muted)}
+
+    /* ADMIN */
+    #admin{position:fixed;inset:0;z-index:9500;background:rgba(5,5,8,0.98);backdrop-filter:blur(20px);display:flex;align-items:flex-start;justify-content:center;padding:2rem 1rem;overflow-y:auto;opacity:0;pointer-events:none;transition:opacity 0.3s}
+    #admin.open{opacity:1;pointer-events:all}
+    .abox{background:var(--night2);border-radius:20px;max-width:660px;width:100%;border:1px solid rgba(245,166,35,0.18);padding:2rem;margin:auto}
+    .ahead{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.8rem}
+    .ahead h2{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800}
+    .ax{background:rgba(255,255,255,0.06);border:none;color:var(--text);width:32px;height:32px;border-radius:50%;font-size:1rem;cursor:pointer}
+    .ax:hover{background:rgba(255,68,68,0.3)}
+    .fg{margin-bottom:1.1rem}
+    .fg label{display:block;font-size:0.74rem;color:var(--muted);margin-bottom:0.35rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+    .fg input,.fg select,.fg textarea{width:100%;background:var(--night3);border:1px solid rgba(255,255,255,0.07);color:var(--text);padding:0.7rem 0.9rem;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.88rem;transition:border-color 0.2s;resize:none}
+    .fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--honey)}
+    .fg select option{background:var(--night3)}
+    .frow{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .cbrow{display:flex;align-items:center;gap:0.6rem;font-size:0.88rem}
+    .cbrow input{width:auto;accent-color:var(--red)}
+    .bsub{width:100%;background:var(--honey);color:var(--night);font-family:'Syne',sans-serif;font-weight:800;padding:0.85rem;border:none;border-radius:12px;font-size:1rem;cursor:pointer;margin-top:0.3rem;transition:transform 0.2s,box-shadow 0.2s}
+    .bsub:hover{transform:translateY(-2px);box-shadow:0 0 28px rgba(245,166,35,0.35)}
+    .alist{margin-top:1.5rem;border-top:1px solid rgba(255,255,255,0.06);padding-top:1.5rem}
+    .alist h3{font-family:'Syne',sans-serif;font-size:0.95rem;margin-bottom:0.8rem}
+    .aitem{display:flex;align-items:center;gap:0.7rem;padding:0.65rem 0.8rem;background:var(--night3);border-radius:10px;margin-bottom:0.45rem}
+    .ainfo{flex:1;min-width:0}
+    .atitle{font-size:0.8rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .ameta{font-size:0.7rem;color:var(--muted)}
+    .bdel{background:rgba(255,68,68,0.12);border:none;color:var(--red);padding:0.28rem 0.55rem;border-radius:6px;font-size:0.7rem;cursor:pointer;white-space:nowrap}
+    .bdel:hover{background:rgba(255,68,68,0.28)}
+
+    /* YT SEARCH */
+    .ytsearch{display:flex;gap:0.5rem;margin-bottom:0.8rem}
+    .ytsearch input{flex:1;background:var(--night3);border:1px solid rgba(255,255,255,0.07);color:var(--text);padding:0.65rem 0.9rem;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.85rem}
+    .ytsearch input:focus{outline:none;border-color:var(--honey)}
+    .bsearch{background:var(--honey);color:var(--night);border:none;padding:0.65rem 1rem;border-radius:10px;font-weight:700;font-size:0.82rem;cursor:pointer;white-space:nowrap}
+    #ytres{display:none;display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:0.8rem;max-height:240px;overflow-y:auto}
+    .ytitem{background:var(--night3);border:1px solid rgba(255,255,255,0.06);border-radius:10px;overflow:hidden;cursor:pointer;transition:border-color 0.2s}
+    .ytitem:hover,.ytitem.sel{border-color:var(--honey)}
+    .ytitem img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+    .ytitem p{padding:0.35rem 0.5rem;font-size:0.7rem;line-height:1.3}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;background:rgba(10,10,15,0.9);backdrop-filter:blur(16px);border-bottom:1px solid rgba(245,166,35,0.07)}
+    .logo{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:var(--honey);text-decoration:none}
+    .logo span{color:var(--text)}
+    nav ul{list-style:none;display:flex;gap:1.4rem;align-items:center}
+    nav ul a{color:var(--muted);text-decoration:none;font-size:0.85rem;font-weight:500;transition:color 0.2s}
+    nav ul a:hover{color:var(--honey)}
+    .b18tag{background:var(--red);color:#fff;font-size:0.64rem;font-weight:700;padding:0.2rem 0.5rem;border-radius:4px;cursor:pointer}
+    .badmin{background:rgba(245,166,35,0.1);border:1px solid rgba(245,166,35,0.2);color:var(--honey);font-size:0.78rem;padding:0.38rem 0.85rem;border-radius:6px;cursor:pointer;text-decoration:none;transition:background 0.2s}
+    .badmin:hover{background:rgba(245,166,35,0.2)}
+
+    /* HERO */
+    .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:7rem 2rem 3rem;position:relative;overflow:hidden}
+    .hglow{position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);width:700px;height:500px;background:radial-gradient(ellipse,rgba(245,166,35,0.11) 0%,transparent 70%);pointer-events:none}
+    .hbadge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(245,166,35,0.1);border:1px solid rgba(245,166,35,0.22);border-radius:999px;padding:0.38rem 1rem;font-size:0.76rem;color:var(--honey);margin-bottom:1.8rem;animation:fadeUp 0.5s ease both}
+    .hero h1{font-family:'Syne',sans-serif;font-size:clamp(2.8rem,7vw,5.5rem);font-weight:800;line-height:1.0;letter-spacing:-2px;margin-bottom:1.2rem;animation:fadeUp 0.6s ease 0.1s both}
+    .hero h1 em{font-style:normal;color:var(--honey)}
+    .hero p{max-width:500px;color:var(--muted);font-size:0.98rem;line-height:1.7;margin-bottom:1.8rem;animation:fadeUp 0.6s ease 0.2s both}
+    .pills{display:flex;gap:0.5rem;flex-wrap:wrap;justify-content:center;margin-bottom:2.2rem;animation:fadeUp 0.6s ease 0.3s both}
+    .pill{background:var(--night3);border:1px solid rgba(255,255,255,0.07);border-radius:999px;padding:0.32rem 0.85rem;font-size:0.76rem;color:var(--muted)}
+    .stats{display:flex;gap:2.5rem;flex-wrap:wrap;justify-content:center;animation:fadeUp 0.6s ease 0.4s both}
+    .st{text-align:center}
+    .stn{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--honey)}
+    .stl{font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+
+    /* FILTER */
+    .fbar{display:flex;gap:0.5rem;flex-wrap:wrap;padding:1.2rem 2rem;background:var(--night2);border-bottom:1px solid rgba(255,255,255,0.05);position:sticky;top:62px;z-index:90}
+    .fbtn{background:var(--night3);border:1px solid rgba(255,255,255,0.06);color:var(--muted);padding:0.4rem 0.9rem;border-radius:999px;font-size:0.78rem;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif}
+    .fbtn.active,.fbtn:hover{background:var(--honey);color:var(--night);border-color:var(--honey);font-weight:600}
+
+    /* SECTION */
+    section{padding:3.5rem 2rem;position:relative;z-index:1}
+    .container{max-width:1100px;margin:0 auto}
+    .slabel{font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--honey);margin-bottom:0.4rem}
+    .stitle{font-family:'Syne',sans-serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;margin-bottom:0.4rem}
+    .ssub{color:var(--muted);font-size:0.88rem;line-height:1.6;margin-bottom:1.8rem}
+
+    /* VIDEO GRID */
+    .vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.1rem}
+    .vcard{background:var(--night2);border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,0.05);transition:transform 0.2s,border-color 0.2s;cursor:pointer}
+    .vcard:hover{transform:translateY(-5px);border-color:rgba(245,166,35,0.22)}
+    .vthumb{width:100%;aspect-ratio:16/9;position:relative;background:var(--night3);display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .vthumb img{width:100%;height:100%;object-fit:cover;display:block}
+    .voverlay{position:absolute;inset:0;background:rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.2s}
+    .vcard:hover .voverlay{opacity:1}
+    .playbtn{width:50px;height:50px;background:var(--honey);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--night);font-weight:bold}
+    .sbadge{position:absolute;top:7px;left:7px;background:rgba(0,0,0,0.72);backdrop-filter:blur(6px);border-radius:5px;padding:0.22rem 0.45rem;font-size:0.68rem;font-weight:600;color:#fff}
+    .lbadge{position:absolute;top:7px;right:7px;background:var(--red);border-radius:5px;padding:0.22rem 0.45rem;font-size:0.65rem;font-weight:700;color:#fff}
+    .vinfo{padding:0.85rem 1rem 1rem}
+    .vtag{font-size:0.66rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--honey);margin-bottom:0.3rem}
+    .vtitle{font-family:'Syne',sans-serif;font-size:0.88rem;font-weight:700;margin-bottom:0.45rem;line-height:1.4}
+    .vmeta{display:flex;gap:0.9rem;font-size:0.7rem;color:var(--muted);flex-wrap:wrap}
+    .empty{text-align:center;padding:3rem;color:var(--muted);font-size:0.88rem;grid-column:1/-1}
+    .empty .ei{font-size:2.2rem;margin-bottom:0.7rem}
+
+    /* FOOTER */
+    footer{border-top:1px solid rgba(255,255,255,0.05);padding:1.8rem 2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+    footer p{font-size:0.76rem;color:var(--muted)}
+    .flinks{display:flex;gap:1.2rem}
+    .flinks a{color:var(--muted);text-decoration:none;font-size:0.76rem;transition:color 0.2s}
+    .flinks a:hover{color:var(--honey)}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity 0.5s ease,transform 0.5s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    @media(max-width:640px){nav ul{display:none}.frow{grid-template-columns:1fr}#ytres{grid-template-columns:1fr}footer{flex-direction:column;text-align:center}}
+  </style>
+</head>
+<body>
+
+<!-- AGE GATE -->
+<div id="age-gate">
+  <div class="age-box">
+    <div style="font-size:3rem">🐝</div>
+    <h2>Selamat datang di<br/><span style="color:var(--honey)">BeeNight</span></h2>
+    <p>Platform video viral dari YouTube, TikTok, Reels & Facebook. Dengan melanjutkan kamu menyetujui bahwa kamu berusia minimal <strong>13 tahun</strong> dan setuju dengan ketentuan layanan kami.</p>
+    <div class="age-warn">⚠️ Sebagian konten berlabel <strong>18+</strong> memerlukan konfirmasi usia tersendiri.</div>
+    <div class="age-btns">
+      <button class="btn-yes" onclick="confirmAge()">✅ Saya mengerti & lanjutkan</button>
+      <button class="btn-no" onclick="location.href='https://www.google.com'">❌ Keluar</button>
+    </div>
+  </div>
+</div>
+
+<!-- 18+ GATE -->
+<div id="gate18">
+  <div class="gate-box">
+    <div style="font-size:2.5rem">🔞</div>
+    <h2>Konten 18+</h2>
+    <p>Bagian ini berisi konten yang hanya sesuai untuk pengguna dewasa <strong>18 tahun ke atas</strong>.</p>
+    <div class="gate-disc">⚠️ <strong>Disclaimer:</strong> Dengan melanjutkan kamu menyatakan berusia minimal 18 tahun dan bertanggung jawab penuh atas akses konten ini. BeeNight tidak bertanggung jawab atas akses yang tidak semestinya.</div>
+    <div class="gate-btns">
+      <button class="btn-18yes" onclick="confirm18()">🔓 Ya, Saya Berusia 18+</button>
+      <button class="btn-18no" onclick="document.getElementById('gate18').classList.remove('open')">← Kembali</button>
+    </div>
+  </div>
+</div>
+
+<!-- VIDEO MODAL -->
+<div id="vmodal" onclick="closeModal(event)">
+  <div class="mbox">
+    <button class="mclose" onclick="closeModal()">✕</button>
+    <div id="mvideo"></div>
+    <div class="minfo">
+      <div id="mtitle"></div>
+      <div id="mmeta"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="admin">
+  <div class="abox">
+    <div class="ahead">
+      <h2>⚙️ Admin Panel</h2>
+      <button class="ax" onclick="toggleAdmin()">✕</button>
+    </div>
+
+    <div class="slabel" style="margin-bottom:0.4rem">🔴 Cari dari YouTube API</div>
+    <div style="font-size:0.73rem;color:var(--muted);margin-bottom:0.7rem">Butuh YouTube Data API v3 Key dari <a href="https://console.cloud.google.com" target="_blank" style="color:var(--honey)">Google Cloud Console</a>.</div>
+    <div class="fg">
+      <label>YouTube API Key</label>
+      <input type="password" id="ytkey" placeholder="AIzaSy..." oninput="localStorage.setItem('bnk',this.value)"/>
+    </div>
+    <div class="ytsearch">
+      <input type="text" id="ytsq" placeholder="Cari video viral di YouTube..." onkeydown="if(event.key==='Enter')searchYT()"/>
+      <button class="bsearch" onclick="searchYT()">🔍 Cari</button>
+    </div>
+    <div id="ytres"></div>
+
+    <div class="slabel" style="margin-bottom:0.8rem;margin-top:0.3rem">➕ Tambah Video Manual</div>
+    <div class="frow">
+      <div class="fg"><label>Judul Video *</label><input type="text" id="ftitle" placeholder="Judul video..."/></div>
+      <div class="fg"><label>Kategori</label>
+        <select id="fcat">
+          <option value="Trending">🔥 Trending</option>
+          <option value="Lucu">😂 Lucu & Unik</option>
+          <option value="Gaming">🎮 Gaming</option>
+          <option value="Musik">🎵 Musik</option>
+          <option value="Berita">📰 Berita</option>
+          <option value="Olahraga">⚽ Olahraga</option>
+        </select>
+      </div>
+    </div>
+    <div class="frow">
+      <div class="fg"><label>Sumber Platform</label>
+        <select id="fsrc">
+          <option value="YouTube">🔴 YouTube</option>
+          <option value="TikTok">🎵 TikTok</option>
+          <option value="Instagram">📸 Instagram Reels</option>
+          <option value="Facebook">👤 Facebook</option>
+        </select>
+      </div>
+      <div class="fg"><label>Jumlah Views (contoh: 1.2M)</label><input type="text" id="fviews" placeholder="500K"/></div>
+    </div>
+    <div class="fg"><label>Link Video * (YouTube/TikTok/Reels/FB URL)</label><input type="text" id="furl" placeholder="https://youtube.com/watch?v=..."/></div>
+    <div class="fg"><label>URL Thumbnail (opsional, otomatis untuk YouTube)</label><input type="text" id="fthumb" placeholder="https://img.youtube.com/vi/ID/0.jpg"/></div>
+    <div class="fg"><label>Deskripsi Singkat</label><textarea id="fdesc" rows="2" placeholder="Ceritakan sedikit tentang video ini..."></textarea></div>
+    <div class="fg"><div class="cbrow"><input type="checkbox" id="f18"/><label for="f18" style="text-transform:none;letter-spacing:0;color:var(--text);font-size:0.88rem">🔞 Tandai sebagai konten 18+ (memerlukan konfirmasi usia)</label></div></div>
+    <button class="bsub" onclick="addVideo()">➕ Tambah ke BeeNight</button>
+
+    <div class="alist">
+      <h3>📋 Semua Video (<span id="vcnt">0</span>)</h3>
+      <div id="avlist"></div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">Bee<span>Night</span></a>
+  <ul>
+    <li><a href="#viral">Viral</a></li>
+    <li><a href="#semua">Semua</a></li>
+    <li><a href="#sec18" class="b18tag">🔞 18+</a></li>
+    <li><a href="#" class="badmin" onclick="toggleAdmin();return false">⚙️ Admin</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hglow"></div>
+  <div class="hbadge">🔥 Video viral terupdate setiap hari</div>
+  <h1>Semua Video<br/><em>Viral</em> Ada di Sini</h1>
+  <p>Konten viral terpanas dari YouTube, TikTok, Instagram Reels, dan Facebook — dikurasi khusus untuk kamu.</p>
+  <div class="pills">
+    <span class="pill">🔴 YouTube</span>
+    <span class="pill">🎵 TikTok</span>
+    <span class="pill">📸 Instagram Reels</span>
+    <span class="pill">👤 Facebook</span>
+  </div>
+  <div class="stats">
+    <div class="st"><div class="stn" id="tcnt">0</div><div class="stl">Video</div></div>
+    <div class="st"><div class="stn">Daily</div><div class="stl">Update</div></div>
+    <div class="st"><div class="stn">4</div><div class="stl">Platform</div></div>
+  </div>
+</section>
+
+<!-- FILTER BAR -->
+<div class="fbar" id="semua">
+  <button class="fbtn active" onclick="doFilter('all',this)">🌟 Semua</button>
+  <button class="fbtn" onclick="doFilter('Trending',this)">🔥 Trending</button>
+  <button class="fbtn" onclick="doFilter('Lucu',this)">😂 Lucu</button>
+  <button class="fbtn" onclick="doFilter('Gaming',this)">🎮 Gaming</button>
+  <button class="fbtn" onclick="doFilter('Musik',this)">🎵 Musik</button>
+  <button class="fbtn" onclick="doFilter('Berita',this)">📰 Berita</button>
+  <button class="fbtn" onclick="doFilter('Olahraga',this)">⚽ Olahraga</button>
+</div>
+
+<!-- MAIN VIDEO SECTION -->
+<section id="viral">
+  <div class="container">
+    <div class="slabel reveal">Video Viral</div>
+    <h2 class="stitle reveal">Trending Sekarang</h2>
+    <p class="ssub reveal">Klik video untuk menonton langsung. Konten TikTok/Reels akan membuka platform aslinya.</p>
+    <div class="vgrid reveal" id="mgrid">
+      <div class="empty"><div class="ei">🎬</div><p>Belum ada video. Buka <strong>Admin Panel</strong> untuk mulai menambahkan!</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 18+ SECTION -->
+<section id="sec18" style="background:var(--night2)">
+  <div class="container">
+    <div class="slabel reveal" style="color:var(--red)">Konten Dewasa</div>
+    <h2 class="stitle reveal">🔞 Zone 18+</h2>
+    <p class="ssub reveal">Konten ini hanya untuk pengguna 18 tahun ke atas. Kamu akan diminta konfirmasi usia sebelum menonton.</p>
+    <div class="vgrid reveal" id="agrid">
+      <div class="empty"><div class="ei">🔒</div><p>Belum ada konten 18+. Tambahkan lewat Admin Panel dan centang opsi 18+.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <strong style="color:var(--honey)">BeeNight</strong> — Video Viral Terbaik. Dibuat oleh Efsarrr 🐝</p>
+  <div class="flinks">
+    <a href="https://github.com/Efsarrr/BeeNight" target="_blank">GitHub</a>
+    <a href="#">Instagram</a>
+    <a href="#">TikTok</a>
+  </div>
+</footer>
+
+<script>
+let vids = JSON.parse(localStorage.getItem('bnvids')||'[]');
+let age18ok = sessionStorage.getItem('bn18')==='true';
+let pending18 = null;
+let curFilter = 'all';
+
+// INIT
+window.addEventListener('load',()=>{
+  if(sessionStorage.getItem('bnage')==='true') document.getElementById('age-gate').classList.add('hidden');
+  const k=localStorage.getItem('bnk'); if(k) document.getElementById('ytkey').value=k;
+  render();
+  const obs=new IntersectionObserver(es=>es.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*80);}),{threshold:0.08});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+});
+
+// AGE GATE
+function confirmAge(){sessionStorage.setItem('bnage','true');document.getElementById('age-gate').classList.add('hidden');}
+
+// 18+ GATE
+function confirm18(){
+  sessionStorage.setItem('bn18','true');age18ok=true;
+  document.getElementById('gate18').classList.remove('open');
+  if(pending18){openVid(pending18);pending18=null;}
+}
+
+// VIDEO MODAL
+function openVid(v){
+  if(v.is18&&!age18ok){pending18=v;document.getElementById('gate18').classList.add('open');return;}
+  const embed=getEmbed(v.url,v.src);
+  const mv=document.getElementById('mvideo');
+  if(embed){
+    mv.innerHTML=`<iframe src="${embed}" allowfullscreen allow="autoplay;encrypted-media" style="width:100%;height:100%;border:none;display:block;aspect-ratio:16/9"></iframe>`;
+  } else {
+    mv.innerHTML=`<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;aspect-ratio:16/9;gap:1rem;padding:2rem;text-align:center;background:#000"><div style="font-size:2rem">🔗</div><p style="color:#888;font-size:0.88rem">${v.src} tidak bisa di-embed langsung.</p><a href="${v.url}" target="_blank" style="background:var(--honey);color:#000;padding:0.6rem 1.4rem;border-radius:8px;font-weight:700;text-decoration:none;font-size:0.88rem">▶ Buka di ${v.src}</a></div>`;
+  }
+  document.getElementById('mtitle').textContent=v.title;
+  document.getElementById('mmeta').innerHTML=`${si(v.src)} ${v.src} &nbsp;·&nbsp; 📂 ${v.cat}${v.views?` &nbsp;·&nbsp; 👁 ${v.views}`:''}`;
+  document.getElementById('vmodal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(e){
+  if(e&&e.target!==document.getElementById('vmodal')&&!e.target.classList.contains('mclose'))return;
+  document.getElementById('vmodal').classList.remove('open');
+  document.getElementById('mvideo').innerHTML='';
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();document.getElementById('gate18').classList.remove('open');}});
+
+function getEmbed(url,src){
+  if(!url)return null;
+  const yt=url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+  if(yt)return`https://www.youtube.com/embed/${yt[1]}?autoplay=1`;
+  if(url.includes('youtube.com/embed/'))return url+(url.includes('?')?'&':'?')+'autoplay=1';
+  // TikTok, Instagram, Facebook — redirect to original
+  return null;
+}
+
+// RENDER
+function si(s){return{YouTube:'🔴',TikTok:'🎵',Instagram:'📸',Facebook:'👤'}[s]||'🌐';}
+function ce(c){return{Trending:'🔥',Lucu:'😂',Gaming:'🎮',Musik:'🎵',Berita:'📰',Olahraga:'⚽'}[c]||'🎬';}
+
+function mkCard(v){
+  const d=document.createElement('div');
+  d.className='vcard';d.onclick=()=>openVid(v);
+  const th=v.thumb?`<img src="${v.thumb}" alt="${esc(v.title)}" loading="lazy" onerror="this.style.display='none'">`:`<span style="font-size:2.2rem">${ce(v.cat)}</span>`;
+  d.innerHTML=`<div class="vthumb">${th}<div class="voverlay"><div class="playbtn">▶</div></div><span class="sbadge">${si(v.src)} ${v.src}</span>${v.is18?'<span class="lbadge">🔞 18+</span>':''}</div><div class="vinfo"><div class="vtag">${v.cat}</div><div class="vtitle">${esc(v.title)}</div><div class="vmeta"><span>${si(v.src)} ${v.src}</span>${v.views?`<span>👁 ${v.views}</span>`:''}</div></div>`;
+  return d;
+}
+
+function render(){
+  const normal=vids.filter(v=>!v.is18);
+  const adult=vids.filter(v=>v.is18);
+  const mg=document.getElementById('mgrid');
+  const filtered=curFilter==='all'?normal:normal.filter(v=>v.cat===curFilter);
+  mg.innerHTML='';
+  if(filtered.length===0){mg.innerHTML=`<div class="empty"><div class="ei">🎬</div><p>Belum ada video${curFilter!=='all'?' kategori '+curFilter:''}. Tambahkan lewat Admin Panel!</p></div>`;}
+  else filtered.forEach(v=>mg.appendChild(mkCard(v)));
+  const ag=document.getElementById('agrid');
+  ag.innerHTML='';
+  if(adult.length===0){ag.innerHTML='<div class="empty"><div class="ei">🔒</div><p>Belum ada konten 18+.</p></div>';}
+  else adult.forEach(v=>ag.appendChild(mkCard(v)));
+  document.getElementById('tcnt').textContent=vids.length;
+  renderAdmin();
+}
+
+function doFilter(cat,btn){
+  curFilter=cat;
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');render();
+}
+
+// ADMIN
+function toggleAdmin(){document.getElementById('admin').classList.toggle('open');}
+
+function addVideo(){
+  const title=document.getElementById('ftitle').value.trim();
+  const url=document.getElementById('furl').value.trim();
+  if(!title||!url){alert('Judul dan URL wajib diisi!');return;}
+  const v={id:Date.now(),title,url,cat:document.getElementById('fcat').value,src:document.getElementById('fsrc').value,views:document.getElementById('fviews').value.trim(),thumb:document.getElementById('fthumb').value.trim()||autoThumb(url),desc:document.getElementById('fdesc').value.trim(),is18:document.getElementById('f18').checked,date:new Date().toLocaleDateString('id-ID')};
+  vids.unshift(v);save();render();
+  ['ftitle','furl','fviews','fthumb','fdesc'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f18').checked=false;
+  alert('✅ Video berhasil ditambahkan!');
+}
+
+function autoThumb(url){
+  const yt=url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+  return yt?`https://img.youtube.com/vi/${yt[1]}/mqdefault.jpg`:'';
+}
+
+function delVid(id){if(!confirm('Hapus video ini?'))return;vids=vids.filter(v=>v.id!==id);save();render();}
+function save(){localStorage.setItem('bnvids',JSON.stringify(vids));}
+
+function renderAdmin(){
+  document.getElementById('vcnt').textContent=vids.length;
+  const l=document.getElementById('avlist');
+  if(!vids.length){l.innerHTML='<p style="font-size:0.78rem;color:var(--muted)">Belum ada video.</p>';return;}
+  l.innerHTML=vids.slice(0,25).map(v=>`<div class="aitem"><span style="font-size:1.1rem">${si(v.src)}</span><div class="ainfo"><div class="atitle">${v.is18?'🔞 ':''}${esc(v.title)}</div><div class="ameta">${v.cat} · ${v.src} · ${v.date}</div></div><button class="bdel" onclick="delVid(${v.id})">🗑 Hapus</button></div>`).join('');
+}
+
+// YOUTUBE SEARCH
+async function searchYT(){
+  const key=document.getElementById('ytkey').value.trim();
+  const q=document.getElementById('ytsq').value.trim();
+  if(!key){alert('Masukkan YouTube API Key terlebih dahulu!\n\nCara dapat API key:\n1. Buka console.cloud.google.com\n2. Buat project baru\n3. Enable YouTube Data API v3\n4. Buat Credentials → API Key');return;}
+  if(!q){alert('Tulis kata kunci pencarian!');return;}
+  const res=document.getElementById('ytres');
+  res.style.display='grid';
+  res.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:1rem;color:var(--muted);font-size:0.82rem">🔍 Mencari...</div>';
+  try{
+    const r=await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(q)}&type=video&maxResults=6&key=${key}`);
+    const data=await r.json();
+    if(data.error){res.innerHTML=`<div style="grid-column:1/-1;color:var(--red);padding:0.8rem;font-size:0.78rem">❌ ${data.error.message}<br/><small>Pastikan API key valid dan YouTube Data API v3 sudah diaktifkan.</small></div>`;return;}
+    if(!data.items?.length){res.innerHTML='<div style="grid-column:1/-1;text-align:center;color:var(--muted);padding:0.8rem;font-size:0.8rem">Tidak ada hasil.</div>';return;}
+    res.innerHTML=data.items.map(it=>`<div class="ytitem" onclick="selYT('${it.id.videoId}','${esc2(it.snippet.title)}','${it.snippet.thumbnails.medium.url}',this)"><img src="${it.snippet.thumbnails.medium.url}" loading="lazy"/><p>${it.snippet.title.substring(0,55)}${it.snippet.title.length>55?'...':''}</p></div>`).join('');
+  }catch(e){res.innerHTML=`<div style="grid-column:1/-1;color:var(--red);padding:0.8rem;font-size:0.78rem">❌ Gagal terhubung. Cek koneksi & API key.</div>`;}
+}
+
+function selYT(id,title,thumb,el){
+  document.getElementById('furl').value=`https://www.youtube.com/watch?v=${id}`;
+  document.getElementById('ftitle').value=title;
+  document.getElementById('fthumb').value=thumb;
+  document.getElementById('fsrc').value='YouTube';
+  document.querySelectorAll('.ytitem').forEach(e=>e.classList.remove('sel'));
+  el.classList.add('sel');
+}
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function esc2(s){return s.replace(/'/g,"\\'").replace(/"/g,'&quot;').replace(/\n/g,' ');}
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"BeeNight","url":"https://efsarrr.github.io/BeeNight/","description":"Koleksi video viral terbaik dari YouTube, TikTok, Instagram Reels, dan Facebook."}</script>
+</body>
+</html>
